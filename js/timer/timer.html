@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    window.onload = function(){ 
+      let start = document.getElementById('start')
+      let stop = document.getElementById('stop')
+      let time = document.getElementById('time')
+      let timer = null
+      cnt_s = 0
+      cnt_m = 0
+      cnt_h = 0
+      start.onclick = on_start
+      stop.onclick = on_stop
+      stop.disabled = true
+      function on_start(){
+        start.disabled = true
+        stop.disabled = false 
+        timer = setInterval(function(){
+          cnt_s = Number((cnt_s + 0.1).toFixed(1))
+          console.log(cnt_s);
+          if(cnt_s == 60){
+            cnt_s = 0
+            cnt_m += 1
+          }
+          if(cnt_m == 60){
+            cnt_m = 0
+            cnt_h += 1
+          }
+          time.innerHTML = cnt_h + '時' + cnt_m +'分'+ cnt_s +'秒'
+        }, 100 )
+      }
+      function on_stop(){
+        start.disabled = false
+        stop.disabled = true
+        clearInterval(timer);
+      }
+    };
+  </script>
+  <span>
+    <div style="width: 300px; height: 30px;">
+      <span>
+        <span>Time:</span>
+        <span id='time'></span>
+      </span>
+    </div>
+    <button id='start'>start</button>
+    <button id='stop'>stop</button>
+  </span>
+</body>
+</html>
